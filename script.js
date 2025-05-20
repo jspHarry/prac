@@ -292,40 +292,29 @@ function selectAnswer(selectedBtn, correctAnswer) {
   if (selectedBtn.textContent === correctAnswer) {
     score++;
   } else {
-    // Shake effect instead of vibration
+    // Fallback for haptic: visual shake
     selectedBtn.classList.add("shake");
-    setTimeout(() => {
-      selectedBtn.classList.remove("shake");
-    }, 400);
+    setTimeout(() => selectedBtn.classList.remove("shake"), 400);
   }
 
   nextBtn.disabled = false;
 }
 
-
-
 nextBtn.addEventListener("click", () => {
   currentQuestion++;
-  if (currentQuestion < quizData.length) {
+  if (currentQuestion < questions.length) {
     loadQuestion();
   } else {
-    showResult();
+    showScore();
   }
 });
 
-restartBtn.addEventListener("click", () => {
-  currentQuestion = 0;
-  score = 0;
-  resultEl.classList.add("hidden");
-  document.getElementById("quiz").classList.remove("hidden");
-  loadQuestion();
-});
-
-function showResult() {
-  document.getElementById("quiz").classList.add("hidden");
-  resultEl.classList.remove("hidden");
-  scoreEl.textContent = score;
+function showScore() {
+  document.getElementById("question-container").classList.add("hide");
+  nextBtn.classList.add("hide");
+  scoreContainer.classList.remove("hide");
+  scoreText.textContent = score;
 }
 
-// Initialize quiz
+// Load the first question
 loadQuestion();
