@@ -295,10 +295,15 @@ function selectAnswer(selectedBtn, correctAnswer) {
     // Fallback for haptic: visual shake
     selectedBtn.classList.add("shake");
     setTimeout(() => selectedBtn.classList.remove("shake"), 400);
+
+    if (navigator.vibrate) {
+      navigator.vibrate(200);
+    }
   }
 
   nextBtn.disabled = false;
 }
+
 
 nextBtn.addEventListener("click", () => {
   currentQuestion++;
@@ -325,3 +330,4 @@ function showResult() {
 
 // Initialize quiz
 loadQuestion();
+
