@@ -292,14 +292,16 @@ function selectAnswer(selectedBtn, correctAnswer) {
   if (selectedBtn.textContent === correctAnswer) {
     score++;
   } else {
-    // Haptic feedback for wrong answer
-    if (navigator.vibrate) {
-      navigator.vibrate(200); // vibrates for 200ms
-    }
+    // Shake effect instead of vibration
+    selectedBtn.classList.add("shake");
+    setTimeout(() => {
+      selectedBtn.classList.remove("shake");
+    }, 400);
   }
 
   nextBtn.disabled = false;
 }
+
 
 
 nextBtn.addEventListener("click", () => {
