@@ -302,19 +302,26 @@ function selectAnswer(selectedBtn, correctAnswer) {
 
 nextBtn.addEventListener("click", () => {
   currentQuestion++;
-  if (currentQuestion < questions.length) {
+  if (currentQuestion < quizData.length) {
     loadQuestion();
   } else {
-    showScore();
+    showResult();
   }
 });
 
-function showScore() {
-  document.getElementById("question-container").classList.add("hide");
-  nextBtn.classList.add("hide");
-  scoreContainer.classList.remove("hide");
-  scoreText.textContent = score;
+restartBtn.addEventListener("click", () => {
+  currentQuestion = 0;
+  score = 0;
+  resultEl.classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  loadQuestion();
+});
+
+function showResult() {
+  document.getElementById("quiz").classList.add("hidden");
+  resultEl.classList.remove("hidden");
+  scoreEl.textContent = score;
 }
 
-// Load the first question
+// Initialize quiz
 loadQuestion();
